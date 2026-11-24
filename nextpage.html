@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Account Created</title>
+  <link rel="icon" href="Logo.jpg" type="image/jpg" />
+  <style>
+    :root {
+      --primary-color: #6C63FF;
+      --secondary-color: #4D44DB;
+      --light-bg: #F8F9FA;
+      --card-bg: #FFFFFF;
+      --text-dark: #2D3748;
+      --text-medium: #4A5568;
+      --border-color: #E2E8F0;
+      --success-color: #28a745;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+    body {
+      background-color: #e6f7ff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      color: var(--text-dark);
+    }
+
+    .container {
+      background-color: #d9edff;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      max-width: 450px;
+      width: 100%;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: var(--success-color);
+    }
+
+    p {
+      font-size: 16px;
+      color: var(--text-medium);
+      margin-bottom: 20px;
+    }
+
+    .success-check {
+      margin: 20px auto;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--success-color);
+      position: relative;
+      animation: pop 0.4s ease-in-out;
+    }
+
+    .success-check::after {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 10px;
+      width: 10px;
+      height: 20px;
+      border: solid white;
+      border-width: 0 3px 3px 0;
+      transform: rotate(45deg);
+    }
+
+    .sign-in-link {
+      display: inline-block;
+      margin-top: 20px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--primary-color);
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .sign-in-link.rotate {
+      animation: rotateAnim 0.35s ease-in-out;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes rotateAnim {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(720deg); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="success-check"></div>
+    <h1>Congratulations!</h1>
+    <p>Your SocialPortal account has been successfully created.</p>
+    <a class="sign-in-link" id="go-to-signin">Go to Sign In</a>
+  </div>
+
+  <script>
+    const signInLink = document.getElementById("go-to-signin");
+
+    signInLink.addEventListener("click", function (e) {
+      e.preventDefault();
+      this.classList.add("rotate");
+
+      setTimeout(() => {
+        window.location.href = "Social.html";
+      }, 350);
+    });
+  </script>
+</body>
+</html>

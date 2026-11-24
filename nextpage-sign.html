@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password</title>
+    <link rel="icon" href="Logo.jpg" type="image/jpg">
+    <style>
+        :root {
+            --primary-color: #6C63FF;
+            --secondary-color: #4D44DB;
+            --light-bg: #F8F9FA;
+            --card-bg: #FFFFFF;
+            --text-dark: #2D3748;
+            --text-medium: #4A5568;
+            --border-color: #E2E8F0;
+            --error-color: #dc3545;
+            --success-color: #28a745;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #e6f7ff;
+            color: var(--text-dark);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        .container {
+            background-color: #d9edff;
+            max-width: 440px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-top: 20px;
+        }
+        
+        .back-arrow {
+            font-size: 24px;
+            margin-right: 15px;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .logo {
+            height: 24px;
+            margin-right: 10px;
+        }
+        
+        .email-display {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+        
+        .password-container {
+            background-color: #d9edff;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        
+        .description {
+            color: var(--text-medium);
+            margin-bottom: 24px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 15px;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.1);
+        }
+        
+        .show-password {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        
+        .show-password input {
+            width: auto;
+            margin-right: 8px;
+        }
+        
+        .error-message {
+            color: var(--error-color);
+            font-size: 13px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .next-button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .next-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(108, 99, 255, 0.2);
+        }
+        
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-medium);
+        }
+        
+        .footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(720deg); }
+        }
+
+        .rotating {
+            animation: rotate 0.6s linear;
+            pointer-events: none;
+        }
+        
+        /* Password requirements styling */
+        .password-requirements {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: rgba(248, 249, 250, 0.5);
+            border-radius: 8px;
+            font-size: 13px;
+        }
+        
+        .requirement {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            color: var(--text-medium);
+        }
+        
+        .requirement.valid {
+            color: var(--success-color);
+        }
+        
+        .requirement.invalid {
+            color: var(--error-color);
+        }
+        
+        .requirement-icon {
+            margin-right: 8px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="javascript:history.back()" class="back-arrow">←</a>
+            <img src="Logo.jpg" alt="SocialPortal Logo" class="logo">
+            <span class="email-display" id="usernameDisplay"></span>
+        </div>
+        
+        <div class="password-container">
+            <h1>Create a password</h1>
+            <p class="description">Enter the password you would like to use with your account.</p>
+            
+            <div class="input-group">
+                <label for="password">Create Unique Password</label>
+                <input type="password" id="password" placeholder="Enter password" required minlength="8" maxlength="32">
+                <div class="password-requirements">
+                    <div id="length-req" class="requirement">
+                        <span class="requirement-icon">•</span>
+                        <span>8-32 characters</span>
+                    </div>
+                    <div id="char-req" class="requirement">
+                        <span class="requirement-icon">•</span>
+                        <span>Letters, numbers, and @#$%^&* only</span>
+                    </div>
+                    <div id="lower-req" class="requirement">
+                        <span class="requirement-icon">•</span>
+                        <span>At least one lowercase letter</span>
+                    </div>
+                    <div id="upper-req" class="requirement">
+                        <span class="requirement-icon">•</span>
+                        <span>At least one uppercase letter</span>
+                    </div>
+                    <div id="number-req" class="requirement">
+                        <span class="requirement-icon">•</span>
+                        <span>At least one number</span>
+                    </div>
+                    <div id="special-req" class="requirement">
+                        <span class="requirement-icon">•</span>
+                        <span>At least one special character (@#$%^&*)</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <label for="confirmPassword">Re-type Password</label>
+                <input type="password" id="confirmPassword" placeholder="Retype password" required>
+                <div id="passwordError" class="error-message">Passwords mismatch</div>
+            </div>
+            
+            <div class="show-password">
+                <input type="checkbox" id="showPassword">
+                <label for="showPassword">Show Password</label>
+            </div>
+            
+            <button type="button" class="next-button" id="nextButton">Next</button>
+        </div>
+        
+        <div class="footer">
+            <p>By proceeding, you accept our<br><a href="#">Terms Of Service</a> • <a href="#">Privacy & cookies</a></p>
+        </div>
+    </div>
+
+    <script src="vendor/supabase.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/backend.js"></script>
+    <script>
+        const draft = SP.draft.get();
+        document.getElementById('usernameDisplay').textContent = draft.username || 'username';
+
+        if (!draft.email) {
+            window.location.replace('signup-form.html');
+        } else if (!draft.username) {
+            window.location.replace('nextpage-signu.html');
+        }
+        
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+        const passwordError = document.getElementById('passwordError');
+        const nextButton = document.getElementById('nextButton');
+        const showPasswordCheckbox = document.getElementById('showPassword');
+        
+
+        const lengthReq = document.getElementById('length-req');
+        const charReq = document.getElementById('char-req');
+        const lowerReq = document.getElementById('lower-req');
+        const upperReq = document.getElementById('upper-req');
+        const numberReq = document.getElementById('number-req');
+        const specialReq = document.getElementById('special-req');
+        
+
+        const allowedChars = /^[a-zA-Z0-9@#$%^&*]+$/;
+        const lowerCaseRegex = /[a-z]/;
+        const upperCaseRegex = /[A-Z]/;
+        const numberRegex = /[0-9]/;
+        const specialRegex = /[@#$%^&*]/;
+
+        showPasswordCheckbox.addEventListener('change', function() {
+            const type = this.checked ? 'text' : 'password';
+            passwordInput.type = type;
+            confirmPasswordInput.type = type;
+        });
+
+        function validatePasswords() {
+            if (passwordInput.value !== confirmPasswordInput.value) {
+                passwordError.style.display = 'block';
+                return false;
+            } else {
+                passwordError.style.display = 'none';
+                return true;
+            }
+        }
+
+
+        function validatePasswordComplexity() {
+            const password = passwordInput.value;
+            
+
+            const isValidLength = password.length >= 8 && password.length <= 32;
+            toggleRequirementClass(lengthReq, isValidLength);
+            
+
+            const hasValidChars = allowedChars.test(password);
+            toggleRequirementClass(charReq, hasValidChars);
+            
+
+            const hasLower = lowerCaseRegex.test(password);
+            toggleRequirementClass(lowerReq, hasLower);
+            
+
+            const hasUpper = upperCaseRegex.test(password);
+            toggleRequirementClass(upperReq, hasUpper);
+            
+
+            const hasNumber = numberRegex.test(password);
+            toggleRequirementClass(numberReq, hasNumber);
+            
+
+            const hasSpecial = specialRegex.test(password);
+            toggleRequirementClass(specialReq, hasSpecial);
+            
+            return isValidLength && hasValidChars && hasLower && hasUpper && hasNumber && hasSpecial;
+        }
+        
+        function toggleRequirementClass(element, isValid) {
+            if (isValid) {
+                element.classList.add('valid');
+                element.classList.remove('invalid');
+            } else {
+                element.classList.add('invalid');
+                element.classList.remove('valid');
+            }
+        }
+
+        passwordInput.addEventListener('input', function() {
+            validatePasswordComplexity();
+            
+            if (!allowedChars.test(this.value) && this.value.length > 0) {
+                this.setCustomValidity("Only letters, numbers, and @#$%^&* are allowed");
+            } else {
+                this.setCustomValidity("");
+            }
+        });
+
+        confirmPasswordInput.addEventListener('input', validatePasswords);
+
+        nextButton.addEventListener('click', function() {
+            if (passwordInput.value && confirmPasswordInput.value) {
+                if (validatePasswords() && validatePasswordComplexity()) {
+                    this.classList.add('rotating');
+                    setTimeout(async function() {
+                        try {
+                            const result = await SP.signUp(draft.email, passwordInput.value);
+                            if (result.error) throw result.error;
+
+                            SP.draft.clear();
+                            window.location.href = "nextpage.html";
+                        } catch (err) {
+                            nextButton.classList.remove('rotating');
+                            passwordError.textContent = err.message || 'Could not create your account.';
+                            passwordError.style.display = 'block';
+                        }
+                    }, 300);
+                }
+            } else {
+                passwordError.textContent = 'Please check and confirm your password';
+                passwordError.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

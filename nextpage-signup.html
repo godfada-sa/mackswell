@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Basic Information</title>
+	<link rel="icon" href="Logo.jpg" type="image/jpg">
+    <style>
+        body {
+            font-family: 'Google Sans', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #e6f7ff;
+        }
+        .container {
+            width: 450px;
+            background-color: #d9edff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            text-align: center;
+        }
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        h1 {
+            font-size: 24px;
+            font-weight: 400;
+            margin-bottom: 20px;
+            color: #202124;
+        }
+        .subtitle {
+            font-size: 16px;
+            color: #5f6368;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-size: 14px;
+            color: #5f6368;
+            margin-bottom: 8px;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        input:focus, select:focus {
+            border-color: #1a73e8;
+            outline: none;
+            box-shadow: 0 0 0 2px #e8f0fe;
+        }
+        .date-fields {
+            display: flex;
+            gap: 10px;
+        }
+        .date-fields div {
+            flex: 1;
+        }
+        fieldset {
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        legend {
+            font-size: 14px;
+            color: #5f6368;
+            padding: 0 8px;
+        }
+        .info-text {
+            font-size: 12px;
+            color: #5f6368;
+            margin-top: 20px;
+        }
+        .next-btn {
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 20px;
+            float: right;
+            transition: transform 0.3s ease;
+        }
+        .next-btn:hover {
+            background-color: #1765cc;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(720deg); }
+        }
+        
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            display: none;
+        }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(108, 99, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid #1a73e8;
+            animation: spin 0.6s linear infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="Logo.jpg" alt="SocialPortal Logo" class="logo">
+        
+        <h1><b>Basic Information</b></h1>
+        <div class="subtitle"><b><i>Enter your Birthday and Gender</i></b></div>
+        
+        <form id="accountForm" action="nextpage-signu.html" method="post">
+            <fieldset>
+                <legend align="left"><b>Birthday</b></legend>
+                <div class="form-group date-fields">
+                    <div>
+                        <label for="month">Month</label>
+                        <select id="month" name="month" required>
+                            <option value="" disabled selected>Month</option>
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
+							
+                    </div>
+                    <div>
+                        <label for="day">Day</label>
+                        <input type="number" id="day" name="day" min="1" max="31" placeholder="Day" required>
+                    </div>
+                    <div>
+                        <label for="year">Year</label>
+                        <input type="number" id="year" name="year" min="1957" max="2007" placeholder="Year" required>
+                    </div>
+                </div>
+            </fieldset>
+            
+            <fieldset>
+                <legend align="left"><b>Gender</b></legend>
+                <div class="form-group">
+                    <select id="gender" name="gender" required>
+                        <option value="" disabled selected>Select gender</option>
+                        <option value="female">Female</option>
+                        <option value="male">Male</option>
+                        <option value="rather-not-say">Rather not say</option>
+                    </select>
+                </div>
+            </fieldset>
+            
+            <p class="info-text"><a href="#">Why we ask for birthday and gender</a></p>
+            
+            <button type="submit" class="next-btn">Next</button>
+        </form>
+    </div>
+
+        <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+    </div>
+
+    <script src="vendor/supabase.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/backend.js"></script>
+    <script>
+        document.getElementById('accountForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const month = document.getElementById('month').value;
+            const day = document.getElementById('day').value;
+            const year = document.getElementById('year').value;
+            const gender = document.getElementById('gender').value;
+            
+            if (!month || !day || !year || !gender) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            const birthday = year + '-' + String(month).padStart(2, '0') + '-' + String(day).padStart(2, '0');
+            SP.draft.merge({ birthday: birthday, gender: gender });
+
+            const overlay = document.getElementById('loadingOverlay');
+            overlay.style.display = 'flex';
+            
+            const button = document.querySelector('.next-btn');
+            button.style.transform = 'rotate(720deg)';
+            
+            setTimeout(() => {
+                window.location.href = "nextpage-signu.html";
+            }, 300);
+        });
+    </script>
+</body>
+</html>
